@@ -31,7 +31,6 @@ export default {
             localStorage.setItem("selectedFlavor", JSON.stringify(selectedFlavors));
             // this.$router.push('/cart');
             console.log(localStorage.getItem("selectedDrink") + ' ' + flavor.name)
-
         }
     }
 }
@@ -39,22 +38,25 @@ export default {
 
 <template>
     <h1>Selection of flavors</h1>
-    <section class="allFlavors" v-for="flavor in flavors" :key="flavor">
-        <ul>
-            <button v-bind:class="flavor.isSelected ? 'activeBtn' : 'btnDeactivated'" @click="selectFlavor(flavor)">{{
+    <section class="allFlavors">
+        <button v-for="flavor in flavors" :key="flavor"
+            v-bind:class="flavor.isSelected ? 'activeBtn' : 'btnDeactivated'" @click="selectFlavor(flavor)">{{
                 flavor.name }}</button>
-        </ul>
-
-
     </section>
 </template>
 
 
 
 <style scoped>
+h1 {
+    text-align: center;
+}
+
 button {
     width: 160px;
     border-radius: 5px;
+    flex-wrap: wrap;
+    margin: 0 10px 10px 0;
 }
 
 .activeBtn {
@@ -77,5 +79,10 @@ button {
 .btnDeactivated:hover {
     background-color: #008CBA !important;
     color: white;
+}
+
+section {
+    display: flex;
+    flex-wrap: wrap;
 }
 </style>

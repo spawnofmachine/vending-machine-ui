@@ -13,59 +13,47 @@ import { RouterLink, RouterView } from 'vue-router'
       <h1>Welcome back, {{ $store.state.user.username }}</h1>
       <p>What will the drink of the day for you?</p>
     </section>
-    <nav>
-      <menu class="rightMenu">
-        <li>
-          <RouterLink to="/">Home</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/drinks">Drinks</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/flavors">Flavors</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="about">About</RouterLink>
-        </li>
-        <li v-if="$store.state.token != null">
-          <RouterLink to="account">{{ $store.state.user?.username }}'s account</RouterLink>
-        </li>
-      </menu>
-      <menu class="leftMenu">
-        <li v-if="$store.state.token != null">
-          Welcome, {{ $store.state.user?.username }}
-        </li>
-        <li v-if="$store.state.token != null">
-          <a href="#" @click="logout">Logout</a>
-        </li>
-        <li v-if="$store.state.token == null">
-          <RouterLink to="/login">Login</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/cart">Cart</RouterLink>
-        </li>
-      </menu>
-    </nav>
   </header>
+  <nav>
+    <menu class="leftMenu">
+      <RouterLink to="/">Home</RouterLink>
+      <RouterLink to="/drinks">Drinks</RouterLink>
+      <RouterLink to="about">About</RouterLink>
+      <div v-if="$store.state.token != null">
+        <RouterLink to="account">{{ $store.state.user?.username }}'s account</RouterLink>
+      </div>
+    </menu>
+    <menu class="rightMenu">
+      <p v-if="$store.state.token != null">
+        Welcome, {{ $store.state.user?.username }}
+      </p>
+      <a href="#" @click="logout" v-if="$store.state.token != null">Logout</a>
+      <RouterLink to="/login" v-if="$store.state.token == null">Login</RouterLink>
+      <RouterLink to="/cart">Cart</RouterLink>
+    </menu>
+  </nav>
   <RouterView />
 </template>
 
-<!-- <style scoped>
+<style scoped>
 header {
   line-height: 1.5;
   max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+  width: 100%;
+  justify-content: center;
 }
 
 nav {
+  display: flex;
   width: 100%;
   font-size: 12px;
-  text-align: center;
+  /* text-align: center; */
   margin-top: 2rem;
+}
+
+.rightMenu {
+  margin-left: auto;
+  margin-right: 0;
 }
 
 nav a.router-link-exact-active {
@@ -77,7 +65,7 @@ nav a.router-link-exact-active:hover {
 }
 
 nav a {
-  display: inline-block;
+  display: flexbox;
   padding: 0 1rem;
   border-left: 1px solid var(--color-border);
 }
@@ -91,10 +79,6 @@ nav a:first-of-type {
     display: flex;
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
   }
 
   header .wrapper {
@@ -112,4 +96,4 @@ nav a:first-of-type {
     margin-top: 1rem;
   }
 }
-</style> -->
+</style>
